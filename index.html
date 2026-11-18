@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google 1998 – The Search Revolution</title>
+  <meta name="description" content="An authentic interactive recreation of the early 1998 Google search engine, demonstrating the evolution from keyword-frequency ranking to Larry Page and Sergey Brin's revolutionary PageRank algorithm.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Retro 1998 Top Utilities Bar & Navigation Tabs
+       ========================================================================= -->
+  <header class="vintage-top-bar" role="banner">
+    <div class="vintage-top-left">
+      <span class="vintage-badge">1998 Beta</span>
+      <span><strong>Stanford University Computer Science</strong> – BackRub / PageRank Project</span>
+    </div>
+    <nav class="vintage-nav-tabs" aria-label="Main Navigation">
+      <button class="retro-nav-btn active" data-tab="tab-search" id="nav-btn-search">🔍 Google Search</button>
+      <button class="retro-nav-btn" data-tab="tab-graph" id="nav-btn-graph">🕸️ PageRank Graph</button>
+      <button class="retro-nav-btn" data-tab="tab-compare" id="nav-btn-compare">⚖️ Side-by-Side Comparison</button>
+      <button class="retro-nav-btn" data-tab="tab-education" id="nav-btn-education">📖 The 1998 Revolution</button>
+      <button class="retro-nav-btn" data-tab="tab-lab" id="nav-btn-lab">🧮 Algorithm Lab</button>
+      <button class="retro-nav-btn" data-tab="tab-tests" id="nav-btn-tests">🧪 Verification Suite</button>
+    </nav>
+  </header>
+
+  <!-- Main Application Wrapper -->
+  <main class="main-wrapper" id="app-root">
+
+    <!-- =======================================================================
+         TAB 1: Google Search (Authentic 1998 Homepage & SERP)
+         ======================================================================= -->
+    <section id="tab-search" class="tab-view active" aria-label="Google Search View">
+      
+      <!-- 1A: Authentic 1998 Homepage (visible when no search or reset) -->
+      <div id="home-view" class="home-center-hero">
+        <div class="google-1998-logo" aria-label="Google! 1998 Logo">
+          <span class="logo-g1">G</span><span class="logo-o1">o</span><span class="logo-o2">o</span><span class="logo-g2">g</span><span class="logo-l">l</span><span class="logo-e">e</span><span class="logo-ex">!</span>
+        </div>
+        <p class="google-tagline">Search the web using Google!</p>
+
+        <!-- Search Form Card -->
+        <div class="vintage-search-box">
+          <form id="home-search-form" onsubmit="event.preventDefault();">
+            <div class="search-input-row">
+              <input type="text" id="home-search-input" class="retro-input" placeholder="Search the web (e.g. pizza, food, pune)..." autocomplete="off" spellcheck="false" value="pizza">
+            </div>
+
+            <div class="search-buttons-row">
+              <button type="submit" id="btn-home-search" class="retro-button primary">Google Search</button>
+              <button type="button" id="btn-home-lucky" class="retro-button">I'm feeling lucky</button>
+            </div>
+
+            <!-- Ranking Mode Selector -->
+            <div class="ranking-mode-card">
+              <span class="mode-card-title">Ranking Algorithm Technology:</span>
+              <div class="mode-radios">
+                <label class="mode-label">
+                  <input type="radio" name="ranking-mode" value="pagerank" checked>
+                  <div>
+                    <strong>Google PageRank (1998)</strong>
+                    <div class="mode-desc">Hyperlink graph authority [PR(A) = (1-d) + d &Sigma;(PR/C)]</div>
+                  </div>
+                </label>
+                <label class="mode-label">
+                  <input type="radio" name="ranking-mode" value="keyword">
+                  <div>
+                    <strong>Traditional Keyword Frequency (Pre-Google)</strong>
+                    <div class="mode-desc">Ranks purely by word repetition in text (AltaVista/Lycos style)</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Sample query chips -->
+            <div class="preset-queries">
+              <span>Try historic sample queries:</span>
+              <button type="button" class="query-chip" data-query="pizza">pizza (all 6 pages)</button>
+              <button type="button" class="query-chip" data-query="food">food</button>
+              <button type="button" class="query-chip" data-query="pune">pune</button>
+              <button type="button" class="query-chip" data-query="chai">chai</button>
+              <button type="button" class="query-chip" data-query="biryani">biryani</button>
+              <button type="button" class="query-chip" data-query="dosa">dosa</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="vintage-sub-links">
+          <span>Special Searches:</span>
+          <a href="#" id="link-stanford-search">Stanford Search</a> |
+          <a href="#" id="link-linux-search">Linux Search</a>
+          <br><br>
+          <a href="#" id="link-about-google">Help</a> |
+          <a href="#" id="link-company-info">About Google</a> |
+          <a href="#" id="link-explore-graph">How PageRank Works</a>
+        </div>
+      </div>
+
+      <!-- 1B: Authentic 1998 Search Results (SERP) (toggled on search) -->
+      <div id="serp-view" style="display: none;">
+        <!-- Compact SERP Header -->
+        <div class="serp-header-bar">
+          <a href="#" class="serp-logo" id="serp-home-logo-link" title="Return to Google 1998 Home">
+            <span class="logo-g1">G</span><span class="logo-o1">o</span><span class="logo-o2">o</span><span class="logo-g2">g</span><span class="logo-l">l</span><span class="logo-e">e</span><span class="logo-ex">!</span>
+          </a>
+
+          <form id="serp-search-form" class="serp-form" onsubmit="event.preventDefault();">
+            <input type="text" id="serp-search-input" class="retro-input serp-input" autocomplete="off">
+            <button type="submit" id="btn-serp-search" class="retro-button primary">Search</button>
+          </form>
+
+          <div class="serp-mode-toggle">
+            <span>Ranking Mode:</span>
+            <select id="serp-mode-select" class="retro-button" style="padding: 2px 4px; font-size: 12px;">
+              <option value="pagerank">Google PageRank (1998)</option>
+              <option value="keyword">Traditional Keyword Frequency</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SERP Stats Line -->
+        <div class="serp-stats-bar">
+          <div>
+            Searched the 6-page Web for <strong id="serp-query-display">"pizza"</strong>.
+            Found <span id="serp-count-display">6</span> matching pages (0.01 seconds).
+          </div>
+          <div>
+            Ranked by: <span id="serp-mode-badge" class="serp-mode-badge badge-pagerank">Google PageRank (1998)</span>
+          </div>
+        </div>
+
+        <!-- Pedagogical Insight Banner for current query -->
+        <div id="serp-insight-banner" class="serp-pedagogical-banner">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Ranked Results List -->
+        <div class="serp-results-container" id="serp-results-list">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         TAB 2: "How PageRank Works" (Interactive Graph & Node Inspector)
+         ======================================================================= -->
+    <section id="tab-graph" class="tab-view" aria-label="PageRank Graph Visualizer">
+      <div class="graph-section-header">
+        <h2>How PageRank Works – Directed Web Graph</h2>
+        <p>
+          PageRank treats the World Wide Web as a directed graph where hyperlinks act as academic citations.
+          Node circle sizes scale proportionally to their PageRank score. Click any node or drag to inspect its mathematical contributions.
+        </p>
+      </div>
+
+      <div class="graph-layout-grid">
+        <!-- Left: Interactive SVG Graph Canvas -->
+        <div class="graph-main-panel">
+          <div class="graph-controls-toolbar">
+            <div class="damping-slider-wrapper">
+              <label for="damping-slider"><strong>Damping Factor (d):</strong> <span id="damping-value-display">0.85</span></label>
+              <input type="range" id="damping-slider" min="0.00" max="1.00" step="0.05" value="0.85">
+            </div>
+
+            <div class="stepper-controls">
+              <button type="button" class="retro-button" id="btn-step-reset" title="Reset scores to 1.0">⏮️ Reset</button>
+              <button type="button" class="retro-button" id="btn-step-forward" title="Calculate next iteration">▶️ Step +1</button>
+              <button type="button" class="retro-button" id="btn-step-auto" title="Auto-run iterations">⏩ Auto Play</button>
+              <span id="step-iteration-badge" style="font-size: 11px; font-weight: bold; margin-left: 6px; font-family: var(--font-mono);">Iter: Converged</span>
+            </div>
+          </div>
+
+          <div id="graph-container">
+            <!-- SVG rendered dynamically by graph.js -->
+          </div>
+
+          <div class="graph-legend-bar">
+            <div class="legend-item"><span class="legend-color-dot" style="background: #f9ab00;"></span> Top Authority (PR &ge; 2.0)</div>
+            <div class="legend-item"><span class="legend-color-dot" style="background: #34a853;"></span> Moderate Authority (PR &ge; 1.0)</div>
+            <div class="legend-item"><span class="legend-color-dot" style="background: #ea4335;"></span> Low / Spam (PR &le; 0.20)</div>
+            <div class="legend-item"><span class="legend-color-dot" style="background: #188038;"></span> Green Arrow: Incoming Link</div>
+            <div class="legend-item"><span class="legend-color-dot" style="background: #1a73e8;"></span> Blue Arrow: Outgoing Link</div>
+          </div>
+        </div>
+
+        <!-- Right: Node Inspector Card -->
+        <div class="node-inspector-card" id="node-inspector">
+          <div class="inspector-header">
+            <div class="inspector-title" id="insp-page-title">#2 best-pizza-pune.com</div>
+            <div class="inspector-domain" id="insp-page-url">http://best-pizza-pune.com/</div>
+          </div>
+
+          <div class="inspector-metrics-grid">
+            <div class="inspector-stat-box">
+              <div class="inspector-stat-value" id="insp-pr-score">2.3574</div>
+              <div class="inspector-stat-label">PageRank Score</div>
+            </div>
+            <div class="inspector-stat-box">
+              <div class="inspector-stat-value" id="insp-global-rank">#1 of 6</div>
+              <div class="inspector-stat-label">Global Authority</div>
+            </div>
+            <div class="inspector-stat-box">
+              <div class="inspector-stat-value" id="insp-in-count">4</div>
+              <div class="inspector-stat-label">Inbound Links</div>
+            </div>
+            <div class="inspector-stat-box">
+              <div class="inspector-stat-value" id="insp-out-count">2</div>
+              <div class="inspector-stat-label">Outbound Links</div>
+            </div>
+          </div>
+
+          <div class="inspector-sub-title">Inbound Link Contributors (Who Votes for This Page):</div>
+          <table class="inspector-links-table" id="insp-inbound-table">
+            <thead>
+              <tr>
+                <th>Source Page</th>
+                <th>Source PR</th>
+                <th>Out Links</th>
+                <th>Share (PR/C)</th>
+              </tr>
+            </thead>
+            <tbody id="insp-inbound-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+
+          <div class="inspector-sub-title">PageRank Formula Calculation for This Node:</div>
+          <div class="math-formula-box" id="insp-formula-box">
+            PR(2) = (1 - 0.85) + 0.85 &times; [&Sigma; PR(Ti)/C(Ti)]
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         TAB 3: Side-by-Side Comparison (Keyword vs PageRank)
+         ======================================================================= -->
+    <section id="tab-compare" class="tab-view" aria-label="Side-by-Side Comparison View">
+      <div class="comparison-header">
+        <h2>Side-by-Side Comparison: Keyword Frequency vs. Google PageRank</h2>
+        <p>
+          Compare how the two algorithms rank the exact same query. Witness how PageRank penalizes keyword stuffing
+          and surfaces authoritative, peer-endorsed websites.
+        </p>
+      </div>
+
+      <div class="comparison-query-bar">
+        <label for="compare-query-input"><strong>Search Query for Comparison:</strong></label>
+        <input type="text" id="compare-query-input" class="retro-input" style="max-width: 220px;" value="pizza">
+        <button type="button" class="retro-button primary" id="btn-run-compare">Compare Now</button>
+        <div class="preset-queries" style="margin-top: 0;">
+          <button type="button" class="query-chip" data-compare="pizza">pizza</button>
+          <button type="button" class="query-chip" data-compare="pune">pune</button>
+          <button type="button" class="query-chip" data-compare="food">food</button>
+        </div>
+      </div>
+
+      <!-- Side-by-Side Columns -->
+      <div class="comparison-split-grid">
+        <!-- Column 1: Keyword Frequency -->
+        <div class="comparison-column column-keyword">
+          <h3 class="comparison-col-title">Mode A: Keyword Frequency (Pre-Google)</h3>
+          <div class="comparison-col-desc">
+            Ranks pages purely by how many times the search term appears in text. Highly vulnerable to keyword spam.
+          </div>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th style="width: 45px;">Rank</th>
+                <th>Website URL</th>
+                <th style="width: 70px;">Matches</th>
+              </tr>
+            </thead>
+            <tbody id="compare-kw-tbody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Column 2: PageRank -->
+        <div class="comparison-column column-pagerank">
+          <h3 class="comparison-col-title">Mode B: Google PageRank (1998)</h3>
+          <div class="comparison-col-desc">
+            Ranks matching pages by hyperlink graph endorsement. Spammers without incoming links sink to the bottom.
+          </div>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th style="width: 45px;">Rank</th>
+                <th>Website URL</th>
+                <th style="width: 65px;">PageRank</th>
+                <th style="width: 65px;">Shift</th>
+              </tr>
+            </thead>
+            <tbody id="compare-pr-tbody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pedagogical Analysis Cards -->
+      <h3 style="font-family: var(--font-serif); font-size: 20px; margin-bottom: 10px;">Why the Rankings Changed</h3>
+      <div class="insights-container" id="compare-insights-list">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         TAB 4: "Why Google Changed Search Forever" (Educational Section)
+         ======================================================================= -->
+    <section id="tab-education" class="tab-view" aria-label="Educational Narrative">
+      <article class="educational-article">
+        <h1>Why Google Changed Search Forever (1998)</h1>
+        
+        <p>
+          In the late 1990s, the World Wide Web was experiencing explosive growth, but finding reliable information was becoming increasingly impossible. Early search engines like <strong>AltaVista, Lycos, Excite, and WebCrawler</strong> indexed web pages by analyzing the keywords within their text and metadata.
+        </p>
+
+        <div class="history-card-grid">
+          <div class="history-card pre-google">
+            <h3>Before Google: Keyword Stuffing Chaos</h3>
+            <p>
+              Pre-1998 search engines operated on a naive assumption: <em>the more times a webpage repeats a word, the more relevant it must be.</em>
+            </p>
+            <p>
+              Spammers quickly exploited this loophole. Webmasters created low-quality landing pages repeating the word <code>pizza</code> hundreds of times in tiny fonts or white text on white backgrounds. In our dataset, <strong>pizza-pizza-pizza.com</strong> uses this exact technique to artificially grab the #1 spot in traditional search engines.
+            </p>
+          </div>
+
+          <div class="history-card google-pagerank">
+            <h3>Google's 1998 PageRank Breakthrough</h3>
+            <p>
+              Stanford Ph.D. students <strong>Larry Page</strong> and <strong>Sergey Brin</strong> realized that the web was not just an unstructured document repository—it was a <strong>directed social network of trust</strong>.
+            </p>
+            <p>
+              Drawing an analogy from <strong>academic citations</strong> (where influential research papers are cited by other distinguished scholars), PageRank treated every hyperlink as a vote of confidence.
+            </p>
+          </div>
+        </div>
+
+        <div class="history-quote-box">
+          &ldquo;In academic citation analysis, you don't just count citations; you weight each citation by the importance of the paper that cited it. PageRank translates this exact citation graph to the World Wide Web.&rdquo;
+          <br><small>&mdash; Larry Page & Sergey Brin, Stanford University Computer Science Department (1998)</small>
+        </div>
+
+        <h2>The Two Pillars of PageRank</h2>
+        <p>
+          The PageRank formula revolutionized information retrieval through two core principles:
+        </p>
+
+        <ol style="margin-left: 24px; margin-bottom: 16px;">
+          <li style="margin-bottom: 10px;">
+            <strong>Endorsement by Citation:</strong> A webpage gains authority not from what it claims about itself, but from how many other independent websites point to it. In our dataset, <strong>best-pizza-pune.com</strong> has 4 incoming links from food guides, student blogs, and recipe websites.
+          </li>
+          <li>
+            <strong>Link Dilution Protection (C(Ti)):</strong> If an authority page links to 100 websites, its vote is split 100 ways. If it links to only 2 websites, each gets half of its endorsement. This prevents link farms from multiplying influence out of thin air.
+          </li>
+        </ol>
+
+        <h2>The Random Surfer Model &amp; Damping Factor (d = 0.85)</h2>
+        <p>
+          Imagine an authentic 1998 internet user browsing the World Wide Web:
+        </p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li><strong>85% of the time (d = 0.85):</strong> The surfer clicks a hyperlink on their current page.</li>
+          <li><strong>15% of the time (1 - d = 0.15):</strong> The surfer gets bored and teleports to a completely random webpage by typing a new URL in their browser address bar.</li>
+        </ul>
+        <p>
+          Mathematically, PageRank calculates the <strong>stationary probability distribution</strong> of where this random surfer will be located after browsing indefinitely. Highly cited, trusted hubs naturally accumulate the vast majority of visits.
+        </p>
+
+        <div class="flow-analogy-box">
+          <h3>Interactive Analogy: PageRank as Water Flow in Pipes</h3>
+          <p>
+            Think of each webpage as a water tank and each hyperlink as a pipe.
+            At every iteration, tanks pump water out through their outgoing pipes into the tanks they link to.
+          </p>
+          <p>
+            Because <strong>pizza-pizza-pizza.com</strong> has zero incoming pipes, its tank never receives water from anyone else. It only maintains a baseline puddle (<code>1 - d = 0.15</code>).
+            Meanwhile, <strong>best-pizza-pune.com</strong> has four separate pipes pumping water into it, making it the deepest, most authoritative reservoir on the web.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================================
+         TAB 5: Algorithm Lab & Mathematics
+         ======================================================================= -->
+    <section id="tab-lab" class="tab-view" aria-label="Algorithm Lab and Mathematics">
+      <div class="graph-section-header">
+        <h2>PageRank Algorithm Lab &amp; Convergence Math</h2>
+        <p>
+          Inspect the rigorous mathematical mechanics of PageRank: iterative matrix operations, convergence logs, and dataset topology.
+        </p>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Math Formula Card -->
+        <div class="lab-panel">
+          <h3>1. The Canonical Formula</h3>
+          <div class="math-formula-box" style="font-size: 14px; margin-bottom: 10px;">
+            PR(A) = (1 - d) + d &times; &sum; [ PR(Ti) / C(Ti) ]
+          </div>
+          <p style="font-size: 12px; color: #444;">
+            Where <code>PR(A)</code> is the score of page A; <code>d = 0.85</code> is the damping factor; <code>Ti</code> are pages linking into A; and <code>C(Ti)</code> is the total number of outgoing links from page Ti.
+          </p>
+        </div>
+
+        <!-- Convergence Table Card -->
+        <div class="lab-panel">
+          <h3>2. Iterative Convergence Table (Damping Factor d = 0.85)</h3>
+          <p style="font-size: 12px; color: #555;">
+            PageRank starts with all pages initialized to 1.0 (average score) and updates values iteratively until the maximum delta (&Delta;) drops below &epsilon; = 10<sup>-6</sup>.
+          </p>
+          <div class="convergence-table-wrapper">
+            <table class="convergence-table" id="convergence-log-table">
+              <thead>
+                <tr>
+                  <th>Iter</th>
+                  <th>#1 pune-food</th>
+                  <th>#2 best-pizza</th>
+                  <th>#3 canteen</th>
+                  <th>#4 recipes</th>
+                  <th>#5 cheap-eats</th>
+                  <th>#6 spam</th>
+                  <th>Max &Delta;</th>
+                </tr>
+              </thead>
+              <tbody id="convergence-tbody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Raw Dataset Card -->
+        <div class="lab-panel">
+          <h3>3. Complete 6-Page Experimental Dataset</h3>
+          <div class="convergence-table-wrapper">
+            <table class="inspector-links-table" style="font-size: 12px;">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>URL</th>
+                  <th>Page Text Content</th>
+                  <th>Links To (Out)</th>
+                  <th>Linked By (In)</th>
+                </tr>
+              </thead>
+              <tbody id="raw-dataset-tbody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         TAB 6: Verification Suite (Self-Test Runner)
+         ======================================================================= -->
+    <section id="tab-tests" class="tab-view" aria-label="Verification Test Suite">
+      <div class="graph-section-header">
+        <h2>Automated Verification Test Suite</h2>
+        <p>
+          Execute live in-browser regression tests validating all 8 engineering and algorithmic requirements specified in Section 10 of the design document.
+        </p>
+      </div>
+
+      <div class="test-suite-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <strong>Status:</strong> <span id="tests-summary-badge" style="color: #137333; font-weight: bold;">Ready to Run</span>
+          </div>
+          <button type="button" class="retro-button primary" id="btn-run-all-tests">Run All 8 Verification Tests</button>
+        </div>
+
+        <div id="tests-results-container">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       Authentic 1998 Footer
+       ========================================================================= -->
+  <footer class="vintage-footer" role="contentinfo">
+    <div>
+      <a href="#" class="tab-link" data-tab="tab-search">Search</a> |
+      <a href="#" class="tab-link" data-tab="tab-graph">PageRank Graph</a> |
+      <a href="#" class="tab-link" data-tab="tab-compare">Comparison</a> |
+      <a href="#" class="tab-link" data-tab="tab-education">History</a> |
+      <a href="#" class="tab-link" data-tab="tab-lab">Algorithm Lab</a> |
+      <a href="#" class="tab-link" data-tab="tab-tests">Tests</a>
+    </div>
+    <div class="footer-credits">
+      Copyright &copy;1998 Google Inc. &bull; Stanford University &bull; Search Technology &ndash; 1998
+    </div>
+    <div class="retro-badges-row">
+      <span class="retro-web-badge">BEST VIEWED WITH NETSCAPE 4.0</span>
+      <span class="retro-web-badge">HOSTED ON SUN ULTRA II SPARC</span>
+      <span class="retro-web-badge">PAGERANK v1.0 ENABLED</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/dataset.js"></script>
+  <script src="js/pagerank.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/comparison.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
